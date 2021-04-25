@@ -8,6 +8,11 @@ var corsOptions = {
     optionsSuccessStatus: 200 // For legacy browser support
 }
 app.use(cors(corsOptions));
+
+app.get("/", (req, res) => {
+    res.send({test : "success"})
+})
+
 app.get("/authenticate", (req, res) => {
     const username = req.query.username
     const password = req.query.password

@@ -1,0 +1,25 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2BA84B;
+}
+
+.signBox {
+    display: inherit;
+    border-radius: 10px;
+    border: none;
+    padding-top: 3rem;
+    justify-content: center;
+    width: 20rem;
+    height: 40vh;
+    background-color: #F4EDED;
+    animation: slideUp 0.5s linear 0s;
+}
+
+.loginInput {
+    display: flex;
+    flex-direction: column;
+}

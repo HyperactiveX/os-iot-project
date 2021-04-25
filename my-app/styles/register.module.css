@@ -1,0 +1,65 @@
+.registerButton:hover, .backButton:hover {
+    background-color: #2D3A3A;
+}
+
+.registerButton, .backButton {
+    background-color: #2BA84B;
+    color: #F4EDED;
+    width: 6rem;
+    height: 2rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+}
+
+.backButton  {
+    background-color: #248232;
+}
+
+.input, .registerButton, .backButton {
+    font-family:  inherit;
+    border: none;
+    border-radius: 10px;
+}
+
+.input, .buttonBox {
+    width: 70%;
+}
+
+.input {
+    height: 2rem;
+    padding: 15px;
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.title {
+    color: #2d3A3A;
+    font-size: 3rem;
+    margin: 10px;
+}
+
+.errorMessage {
+    width: 70%;
+    padding-left: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.75rem;
+    color: #FF0F0F;
+    text-align: left;
+}
+
+.play {
+    animation: shake 0.1s linear;
+}
+
+.buttonBox {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+@keyframes shake {
+    0%  {transform: translateX(0px);} 
+    25% {transform: translateX(3px);}
+    50% {transform: translateX(0px);}
+    75% {transform: translateX(-3px);}
+    100%{transform: translateX(0px);}
+  }

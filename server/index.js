@@ -1,7 +1,21 @@
+var cors = require('cors');
+
 const express = require('express')
+
 const app = express()
-app.get("/", (req, res) => {
-    res.send({hello: 'world'})
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // For legacy browser support
+}
+app.use(cors(corsOptions));
+app.get("/authenticate", (req, res) => {
+    const username = req.query.username
+    const password = req.query.password
+    
+    if (username == 'test' && password == 'test') {
+        return res.send(true)
+    }
+    return res.send(false)
 })
 
 app.listen(8080, () => {

@@ -1,0 +1,58 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2BA84B;
+}
+
+.signBox, .bottomButton, .loginInput {
+    display: inherit;
+}
+
+.signBox, .input, .loginButton {
+    border-radius: 20px;
+    border: none;
+
+}
+
+.input, .loginButton {
+    font-family:  inherit;
+}
+
+.signBox {
+    padding-top: 3rem;
+    justify-content: center;
+    width: 20rem;
+    height: 40vh;
+    background-color: #F4EDED;
+}
+
+.input {
+    width: 70%;
+    height: 2rem;
+    padding: 15px;
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.loginInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    color: #2d3A3A;
+    font-size: 3rem;
+    margin: 10px;
+}
+
+.loginButton {
+    color: #F4EDED;
+    width: 8rem;
+    height: 2rem;
+    background-color: #2BA84B;
+    font-size: 1.15rem;
+    font-weight: 900;
+}

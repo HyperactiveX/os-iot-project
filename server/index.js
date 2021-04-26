@@ -23,6 +23,6 @@ app.get("/authenticate", (req, res) => {
     return res.send(false)
 })
 
-app.listen(8080, () => {
+app.listen(8080, "0.0.0.0", () => {
     console.log('Started at port 8080');
 })

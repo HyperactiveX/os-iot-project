@@ -20,7 +20,7 @@ services:
         environment: 
             - MYSQL_ROOT_PASSWORD=password
         volumes:
-            - ./mysql.cnf:/etc/mysql/conf.d
+            - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf
             - os-iot-database-prod:/var/lib/mysql
 
 volumes: 

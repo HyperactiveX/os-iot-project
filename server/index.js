@@ -1,6 +1,7 @@
 var cors = require('cors');
-
+const connection = require('./DBconnection')
 const express = require('express')
+
 
 const app = express()
 var corsOptions = {
@@ -10,7 +11,21 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
-    res.send({test : "success"})
+    connection.connect()
+
+    connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
+    if (err) throw err
+
+    console.log('The solution is: ', rows[0].solution)
+    })
+
+    connection.end()
+    res.send(
+        {
+            test : "success",
+            db : rows[0].solution
+        }
+    )
 })
 
 app.get("/authenticate", (req, res) => {

@@ -38,4 +38,4 @@ EXPOSE 3000
 # Uncomment the following line in case you want to disable telemetry.
 # RUN npx next telemetry disable
 
-CMD ["yarn", "start"]
+CMD ["yarn","start"]

@@ -13,9 +13,12 @@ export default function Login() {
 
   const login = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/authenticate', {params: {username, password}})
-      if (response.data) {
-        router.push("/home")
+      const response = await axios.post('http://localhost:8080/authenticate', null, { params: {
+        username,
+        password
+      }})
+      if (response.data.status) {
+        router.push(`/home/${response.data.uuid}`)
       } else {
         setError("Incorrect username or password")
         setErrorState(true)

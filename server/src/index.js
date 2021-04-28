@@ -96,6 +96,20 @@ app.get("/checkLogIn", async (req, res) => {
     return res.send(false)
 })
 
+app.get("/getTemperatureAndHumidity", async (req, res) => {
+    try {
+        const db = await getDbConnection()
+        const [rows] = await db.execute(`select *
+                                        from result
+                                        order by recordAt asc
+                                        limit 10`)
+        await db.end()
+        res.send({rows})
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 app.listen(8080, "0.0.0.0", () => {
     console.log('Started at port 8080');
 })

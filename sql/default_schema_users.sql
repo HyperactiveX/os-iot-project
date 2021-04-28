@@ -1,6 +1,3 @@
-create table toei;
-use toei;
-
 create table users (
     createdAt timestamp default CURRENT_TIMESTAMP,
     uuid varchar(36) NOT NULL PRIMARY KEY,

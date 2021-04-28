@@ -26,7 +26,7 @@ services:
             - MYSQL_DATABASE=toei
         volumes:
             - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf
-            - os-iot-database-prod:/var/lib/mysql
+            # - os-iot-database-prod:/var/lib/mysql <= Make all databases static
             - ./mysql:/docker-entrypoint-initdb.d
         command: --default-authentication-plugin=mysql_native_password
 

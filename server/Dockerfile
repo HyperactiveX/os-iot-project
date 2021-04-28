@@ -5,10 +5,12 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN apk add --no-cache --virtual .gyp python2 python3 make g++ \
+    && npm install \
+    && apk del .gyp
 
 COPY . .
 
 EXPOSE 8080
 
-CMD ["nodemon", "index.js"]
+CMD ["node", "./src/index.js"]

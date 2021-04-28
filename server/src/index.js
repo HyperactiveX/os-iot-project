@@ -100,7 +100,7 @@ app.get("/getTemperatureAndHumidity", async (req, res) => {
     try {
         const db = await getDbConnection()
         const [rows] = await db.execute(`select *
-                                        from result
+                                        from results
                                         order by recordAt asc
                                         limit 10`)
         await db.end()

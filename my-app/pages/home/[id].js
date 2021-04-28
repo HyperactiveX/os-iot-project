@@ -18,7 +18,6 @@ export default function Home() {
 
   useEffect(() => {
     checkLogIn()
-    results()
   }, [id])
 
   const checkLogIn = async () => {
@@ -37,6 +36,10 @@ export default function Home() {
       }
     }
   }
+
+  useEffect(() => {
+    results()
+  }, [loginState])
 
   const results = async () => {
     const response = await axios.get('http://localhost:8080/getTemperatureAndHumidity')

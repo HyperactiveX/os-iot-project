@@ -2,6 +2,8 @@ version: "3.0"
 services:
     frontend: 
         image: tkxz/os-iot-project:beta
+        build:
+            context: ./my-app/
         restart: unless-stopped
         ports: 
             - "80:3000"
@@ -9,6 +11,8 @@ services:
             CHOKIDAR_USEPOLLING: "true"
     backend:
         image: tkxz/os-iot-project-backend:beta
+        build:
+            context: ./server/
         restart: unless-stopped
         ports:
             - "8080:8080"
@@ -19,9 +23,12 @@ services:
             - "3306:3306"
         environment: 
             - MYSQL_ROOT_PASSWORD=password
+            - MYSQL_DATABASE=toei
         volumes:
             - ./mysql.cnf:/etc/mysql/conf.d/mysql.cnf
             - os-iot-database-prod:/var/lib/mysql
+            - ./mysql:/docker-entrypoint-initdb.d
+        command: --default-authentication-plugin=mysql_native_password
 
 volumes: 
     os-iot-database-prod:

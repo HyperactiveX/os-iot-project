@@ -8,7 +8,7 @@ const getDbConnection = async () => {
     user: "root",
     password: "password",
     database: "default_schema",
-    port: "9997"
+    port: "3306"
   })
 }
 

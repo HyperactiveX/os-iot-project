@@ -4,17 +4,16 @@ import styles from '../../styles/Home.module.css'
 import axios from 'axios'
 import {Line} from 'react-chartjs-2';
 
-
 export default function Home() {
   const router = useRouter()
   const { id } = router.query
   const [loginState, setLoginState] = useState(false)
-  const [time, setTime] = useState()
-  const [current, setCurrent] = useState()
-  const [temperature, setTemperature] = useState()
-  const [humidity, setHumidity] = useState()
+  const [time, setTime] = useState("00:00:00")
+  const [current, setCurrent] = useState([0, 0])
+  const [temperature, setTemperature] = useState(0)
+  const [waiting, setWaiting] = useState("wait")
+  const [humidity, setHumidity] = useState(0)
   let dataFromDB
-
 
   useEffect(() => {
     checkLogIn()
@@ -28,6 +27,7 @@ export default function Home() {
         }})
         if (response.data === true) {
           setLoginState(true)
+          setWaiting = "done"
         } else {
           setLoginState(false)
         }
@@ -40,14 +40,17 @@ export default function Home() {
   useEffect(() => {
     results()
   }, [loginState])
-
+  
   const results = async () => {
     const interval = setInterval(async function() {
       const response = await axios.get('http://localhost:8080/getTemperatureAndHumidity')
       dataFromDB = response.data.rows
       setTime(dataFromDB.map(function (value) {
-        return value.recordAt.slice(11, 19)
+        let temp = new Date(value.recordAt).toString().split(" ")
+        return temp[4]
+        //.slice(11, 19)
       }))
+      console.log(time)
       setTemperature(dataFromDB.map(function (value) {
         return value.temperature
       }))
@@ -57,8 +60,9 @@ export default function Home() {
       setCurrent({temperature : dataFromDB[9].temperature, humidity : dataFromDB[9].humidity})
     }, 8000);
 
-    interval;
+    interval
   } 
+
 
   const data = {
     labels: time,
@@ -84,9 +88,13 @@ export default function Home() {
         pointRadius: 1,
         pointHitRadius: 10,
         data: temperature,
+        update: 0,
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          animation: {
+            duration: 0
+          },
           scales: {
               yAxes: [{
                   ticks: {
@@ -116,9 +124,13 @@ export default function Home() {
         pointRadius: 1,
         pointHitRadius: 10,
         data: humidity,
+        update: 0,
         options: {
           responsive: true,
           maintainAspectRatio: false,
+          animation: {
+            duration: 0
+          },
           scales: {
               yAxes: [{
                   ticks: {
@@ -133,30 +145,33 @@ export default function Home() {
 
   return (
     <Fragment>
-      {loginState && current != null ? <body>
-      <div className={styles.container}>
-            <div className={styles.navBar}>
-                <div className={styles.title}>Temperature & Humidity</div>
+      {waiting === "wait" ?
+        loginState ? 
+        <body>
+        <div className={styles.container}>
+              <div className={styles.navBar}>
+                  <div className={styles.title}>Temperature & Humidity</div>
+              </div>
+              <div className={styles.content}>
+                <div className={styles.tempBox}>
+                  <b>Current Temperature:</b> {current.temperature}  ํC
+                </div>
+                <div classname={styles.humidBox}>
+                  <b>Current Humidity:</b> {current.humidity} %
+                </div>
+                <hr size="1" width="95%"></hr>
+                <div className={styles.graphBox}>
+                    <Line
+                    data={data}
+                    width={"90vw"}
+                    height={"35vh"}
+                  />
+                </div>
+              </div>
             </div>
-            <div className={styles.content}>
-              <div className={styles.tempBox}>
-                <b>Current Temperature:</b> {current.temperature}  ํC
-              </div>
-              <div classname={styles.humidBox}>
-                <b>Current Humidity:</b> {current.humidity} %
-              </div>
-              <hr size="1" width="95%"></hr>
-              <div className={styles.graphBox}>
-                  <Line
-                  data={data}
-                  width={"90vw"}
-                  height={"35vh"}
-                />
-              </div>
-            </div>
-          </div>
-      </body>
-      : <center>502 Authentication error</center>}
+        </body>
+     : <center>502 Authentication error</center>
+    : <center>Logging you in...</center>}
     </Fragment>
   )
 }

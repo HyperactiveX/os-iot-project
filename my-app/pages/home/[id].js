@@ -42,18 +42,22 @@ export default function Home() {
   }, [loginState])
 
   const results = async () => {
-    const response = await axios.get('http://localhost:8080/getTemperatureAndHumidity')
-    dataFromDB = response.data.rows
-    setTime(dataFromDB.map(function (value) {
-      return value.recordAt.slice(11, 19)
-    }))
-    setTemperature(dataFromDB.map(function (value) {
-      return value.temperature
-    }))
-    setHumidity(dataFromDB.map(function (value) {
-      return value.humidity
-    }))
-    setCurrent({temperature : dataFromDB[9].temperature, humidity : dataFromDB[9].humidity})
+    const interval = setInterval(async function() {
+      const response = await axios.get('http://localhost:8080/getTemperatureAndHumidity')
+      dataFromDB = response.data.rows
+      setTime(dataFromDB.map(function (value) {
+        return value.recordAt.slice(11, 19)
+      }))
+      setTemperature(dataFromDB.map(function (value) {
+        return value.temperature
+      }))
+      setHumidity(dataFromDB.map(function (value) {
+        return value.humidity
+      }))
+      setCurrent({temperature : dataFromDB[9].temperature, humidity : dataFromDB[9].humidity})
+    }, 8000);
+
+    interval;
   } 
 
   const data = {

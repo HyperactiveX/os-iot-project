@@ -27,7 +27,7 @@ app.use(
 app.get("/take", async (req, res) => {
     try {
         const db = await getDbConnection()    
-        const [rows] = await db.execute(`SELECT * FROM users`)
+        const [rows] = await db.execute(`SELECT * FROM results`)
         res.send({rows})
         await db.end()
     } catch (err) {

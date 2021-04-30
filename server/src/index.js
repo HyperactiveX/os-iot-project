@@ -99,10 +99,12 @@ app.get("/checkLogIn", async (req, res) => {
 app.get("/getTemperatureAndHumidity", async (req, res) => {
     try {
         const db = await getDbConnection()
-        const [rows] = await db.execute(`select *
-                                        from results
-                                        order by recordAt asc
-                                        limit 10`)
+        const [rows] = await db.execute(`SELECT * FROM (
+                                            SELECT * FROM results
+                                            ORDER BY id DESC
+                                            LIMIT 10
+                                        ) sub
+                                        ORDER BY id ASC`)
         await db.end()
         res.send({rows})
     } catch (err) {

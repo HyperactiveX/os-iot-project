@@ -29,8 +29,8 @@
 }
 
 .graphBox {
-  height: 75vh;
+  height: fit-content;
   width: 90vw;
   border: 1px solid rgba(45, 58, 58, 0.2);
-  border-radius: 30px;
+  border-radius: 10px;
 }

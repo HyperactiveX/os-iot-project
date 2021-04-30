@@ -79,7 +79,18 @@ export default function Home() {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: temperature
+        data: temperature,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true,
+                  }
+              }]
+          }
+        }
       }, {
         type: 'line',
         label: 'Humidity Graph',
@@ -100,14 +111,25 @@ export default function Home() {
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: humidity
+        data: humidity,
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
       }
-    ]
+      }
+    ],
   };
 
   return (
     <Fragment>
-      {loginState ? <body>
+      {loginState && current != null ? <body>
       <div className={styles.container}>
             <div className={styles.navBar}>
                 <div className={styles.title}>Temperature & Humidity</div>
@@ -121,11 +143,11 @@ export default function Home() {
               </div>
               <hr size="1" width="95%"></hr>
               <div className={styles.graphBox}>
-                <Line
+                  <Line
                   data={data}
-                  width={400}
-                  height={200}
-                />  
+                  width={"90vw"}
+                  height={"35vh"}
+                />
               </div>
             </div>
           </div>
